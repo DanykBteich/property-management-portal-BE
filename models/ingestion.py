@@ -21,7 +21,6 @@ def ingest_data():
     
     for _, row in df.iterrows():
         db.session.add(Property(
-            PropId = int(row.PropertyID),
             PropAddress = row.Address,
             PropType = row.PropertyType,
             PropStatus = row.Status,
@@ -34,7 +33,6 @@ def ingest_data():
     
     for _, row in df.iterrows():
         db.session.add(Tenant(
-            TenantId = int(row.TenantID),
             TenantName = row.Name,
             TenantContactInfo = row.ContactInfo,
             TenantLeaseTermStart = row.LeaseTermStart,
@@ -47,7 +45,6 @@ def ingest_data():
     df = pd.read_csv(maintenance_dir, parse_dates=["ScheduledDate"])
     for _, row in df.iterrows():
         db.session.add(Task(
-            TaskId = int(row.TaskID),
             TaskDescription = row.Description,
             TaskStatus = row.Status,
             TaskScheduledDate = row.ScheduledDate,
