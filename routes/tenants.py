@@ -24,7 +24,7 @@ def Create_tenant():
     tenant = tenant_schema.load(data)
     db.session.add(tenant)
     db.session.commit()
-    return tenant_schema.jsonify(tenant), 201
+    return jsonify(tenant_schema.dump(tenant)), 201
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_tenant(id):
@@ -35,9 +35,10 @@ def Get_tenant(id):
 def Update_tenant(id):
     tenant = Tenant.query.get_or_404(id)
     data = request.get_json(force=True)
-    updated_data = tenant_schema.load(data, instance=tenant, partial=True)
+    for key, value in data.items():
+        setattr(tenant, key, value)
     db.session.commit()
-    return tenant_schema.jsonify(updated_data)
+    return jsonify(tenant_schema.dump(tenant))
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_tenant(id):

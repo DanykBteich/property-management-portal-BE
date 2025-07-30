@@ -24,7 +24,7 @@ def Create_task():
     task = task_schema.load(data)
     db.session.add(task)
     db.session.commit()
-    return task_schema.jsonify(task), 201
+    return jsonify(task_schema.dump(task)), 201
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_task(id):
@@ -35,9 +35,10 @@ def Get_task(id):
 def Update_task(id):
     task = Task.query.get_or_404(id)
     data = request.get_json(force=True)
-    updated_data = task_schema.load(data, instance=task, partial=True)
+    for key, value in data.items():
+        setattr(task, key, value)
     db.session.commit()
-    return task_schema.jsonify(updated_data)
+    return jsonify(task_schema.dump(task))
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_task(id):

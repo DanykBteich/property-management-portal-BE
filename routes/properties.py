@@ -24,7 +24,7 @@ def Create_property():
     prop = property_schema.load(data)
     db.session.add(prop)
     db.session.commit()
-    return property_schema.jsonify(prop), 201
+    return jsonify(property_schema.dump(prop)), 201
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_property(id):
@@ -35,9 +35,10 @@ def Get_property(id):
 def Update_property(id):
     prop = Property.query.get_or_404(id)
     data = request.get_json(force=True)
-    updated_data = property_schema.load(data, instance=prop, partial=True)
+    for key, value in data.items():
+        setattr(prop, key, value)
     db.session.commit()
-    return property_schema.jsonify(updated_data)
+    return jsonify(property_schema.dump(prop))
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_property(id):
