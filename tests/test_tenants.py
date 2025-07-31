@@ -1,13 +1,14 @@
 import unittest
-import json
+import os
 from app import create_app
 from models import db, Tenant, Property
 
 class TenantTestCase(unittest.TestCase):
     def setUp(self):
+        self.version = os.getenv("VERSION_NUMBER", "v1")
         self.app = create_app()
-        self.app.config['TESTING'] = True
-        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        self.app.config["TESTING"] = True
+        self.app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
         self.client = self.app.test_client()
 
         with self.app.app_context():
@@ -32,13 +33,13 @@ class TenantTestCase(unittest.TestCase):
             "TenantRentalPaymentStatus": "Paid",
             "PropId": self.prop_id
         }
-        response = self.client.post('/api/v1/tenants/', json=data)
+        response = self.client.post(f"/api/{self.version}/tenants/", json=data)
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
-        self.assertEqual(json_data['TenantName'], data['TenantName'])
+        self.assertEqual(json_data["TenantName"], data["TenantName"])
 
     def test_get_tenants(self):
-        response = self.client.get('/api/v1/tenants/')
+        response = self.client.get(f"/api/{self.version}/tenants/")
         self.assertEqual(response.status_code, 200)
 
     def test_update_tenant(self):
@@ -49,10 +50,10 @@ class TenantTestCase(unittest.TestCase):
             tenant_id = tenant.TenantId
 
         update_data = {"TenantName": "New Name"}
-        response = self.client.put(f'/api/v1/tenants/{tenant_id}', json=update_data)
+        response = self.client.put(f"/api/{self.version}/tenants/{tenant_id}", json=update_data)
         self.assertEqual(response.status_code, 200)
         json_data = response.get_json()
-        self.assertEqual(json_data['TenantName'], "New Name")
+        self.assertEqual(json_data["TenantName"], "New Name")
 
     def test_delete_tenant(self):
         with self.app.app_context():
@@ -61,8 +62,8 @@ class TenantTestCase(unittest.TestCase):
             db.session.commit()
             tenant_id = tenant.TenantId
 
-        response = self.client.delete(f'/api/v1/tenants/{tenant_id}')
+        response = self.client.delete(f"/api/{self.version}/tenants/{tenant_id}")
         self.assertEqual(response.status_code, 204)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

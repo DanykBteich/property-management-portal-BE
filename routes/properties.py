@@ -2,7 +2,6 @@
     Endpoints for Properties
 """
 from flask import Blueprint, request, jsonify
-from werkzeug.exceptions import BadRequest
 from models import db, Property
 from schemas import PropertySchema
 from .utils import paginate_query
@@ -28,12 +27,18 @@ def Create_property():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_property(id):
-    prop = Property.query.get_or_404(id)
+    prop = db.session.get(Property, id)
+    if prop is None:
+        return jsonify({"Message": f"Property id {id} not found"}), 404
+        
     return property_schema.jsonify(prop)
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_property(id):
-    prop = Property.query.get_or_404(id)
+    prop = db.session.get(Property, id)
+    if prop is None:
+        return jsonify({"Message": f"Property id {id} not found"}), 404
+        
     data = request.get_json(force=True)
     for key, value in data.items():
         setattr(prop, key, value)
@@ -42,7 +47,10 @@ def Update_property(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_property(id):
-    prop = Property.query.get_or_404(id)
+    prop = db.session.get(Property, id)
+    if prop is None:
+        return jsonify({"Message": f"Property id {id} not found"}), 404
+        
     db.session.delete(prop)
     db.session.commit()
     return jsonify({"Message": f"Property id {id} deleted successfully"}), 204

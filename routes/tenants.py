@@ -28,12 +28,18 @@ def Create_tenant():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_tenant(id):
-    tenant = Tenant.query.get_or_404(id)
+    tenant = db.session.get(Tenant, id)
+    if tenant is None:
+        return jsonify({"Message": f"Tenant id {id} not found"}), 404
+    
     return tenant_schema.jsonify(tenant)
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_tenant(id):
-    tenant = Tenant.query.get_or_404(id)
+    tenant = db.session.get(Tenant, id)
+    if tenant is None:
+        return jsonify({"Message": f"Tenant id {id} not found"}), 404
+    
     data = request.get_json(force=True)
     for key, value in data.items():
         setattr(tenant, key, value)
@@ -42,7 +48,10 @@ def Update_tenant(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_tenant(id):
-    tenant = Tenant.query.get_or_404(id)
+    tenant = db.session.get(Tenant, id)
+    if tenant is None:
+        return jsonify({"Message": f"Tenant id {id} not found"}), 404
+    
     db.session.delete(tenant)
     db.session.commit()
     return jsonify({"Message": f"Tenant id {id} deleted successfully"}), 204

@@ -2,7 +2,6 @@
     Endpoints for Tasks
 """
 from flask import Blueprint, request, jsonify
-from werkzeug.exceptions import BadRequest
 from models import db, Task
 from schemas import TaskSchema
 from .utils import paginate_query
@@ -28,12 +27,18 @@ def Create_task():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_task(id):
-    task = Task.query.get_or_404(id)
+    task = db.session.get(Task, id)
+    if task is None:
+        return jsonify({"Message": f"Task id {id} not found"}), 404
+        
     return task_schema.jsonify(task)
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_task(id):
-    task = Task.query.get_or_404(id)
+    task = db.session.get(Task, id)
+    if task is None:
+        return jsonify({"Message": f"Task id {id} not found"}), 404
+        
     data = request.get_json(force=True)
     for key, value in data.items():
         setattr(task, key, value)
@@ -42,7 +47,10 @@ def Update_task(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_task(id):
-    task = Task.query.get_or_404(id)
+    task = db.session.get(Task, id)
+    if task is None:
+        return jsonify({"Message": f"Task id {id} not found"}), 404
+    
     db.session.delete(task)
     db.session.commit()
     return jsonify({"Message": f"Task id {id} deleted successfully"}), 204
