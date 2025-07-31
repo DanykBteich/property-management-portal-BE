@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, post_load
-from models import Property
+from models import PropertyModel
 from validators.statuses import PROPERTY_STATUS
 from validators.types import PROPERTY_TYPE
 
@@ -16,4 +16,4 @@ class PropertySchema(Schema):
         """
             Create a Property instance from the deserialized data
         """
-        return Property(**data)
+        return PropertyModel(**data)

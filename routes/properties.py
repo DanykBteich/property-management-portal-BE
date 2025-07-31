@@ -2,7 +2,7 @@
     Endpoints for Properties
 """
 from flask import Blueprint, request, jsonify
-from models import db, Property
+from models import db, PropertyModel
 from schemas import PropertySchema
 from .utils import paginate_query
 
@@ -13,7 +13,7 @@ properties_schema = PropertySchema(many=True)
 
 @bp.route("/", methods=["GET"])
 def Get_list_properties():
-    query = Property.query.order_by(Property.PropId)
+    query = PropertyModel.query.order_by(PropertyModel.PropId)
     result = paginate_query(query, properties_schema)
     return jsonify(result)
 
@@ -27,15 +27,15 @@ def Create_property():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_property(id):
-    prop = db.session.get(Property, id)
+    prop = db.session.get(PropertyModel, id)
     if prop is None:
         return jsonify({"Message": f"Property id {id} not found"}), 404
         
-    return property_schema.jsonify(prop)
+    return jsonify(property_schema.dump(prop))
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_property(id):
-    prop = db.session.get(Property, id)
+    prop = db.session.get(PropertyModel, id)
     if prop is None:
         return jsonify({"Message": f"Property id {id} not found"}), 404
         
@@ -47,7 +47,7 @@ def Update_property(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_property(id):
-    prop = db.session.get(Property, id)
+    prop = db.session.get(PropertyModel, id)
     if prop is None:
         return jsonify({"Message": f"Property id {id} not found"}), 404
         

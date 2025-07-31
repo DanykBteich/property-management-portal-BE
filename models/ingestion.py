@@ -1,7 +1,6 @@
 import os 
 import pandas as pd
-from flask import current_app
-from models import db, Property, Tenant, Task
+from models import db, PropertyModel, TenantModel, TaskModel
 
 def ingest_data():
     """
@@ -20,7 +19,7 @@ def ingest_data():
     df = pd.read_csv(properties_dir, parse_dates=["PurchaseDate"])
     
     for _, row in df.iterrows():
-        db.session.add(Property(
+        db.session.add(PropertyModel(
             PropAddress = row.Address,
             PropType = row.PropertyType,
             PropStatus = row.Status,
@@ -32,7 +31,7 @@ def ingest_data():
     df = pd.read_csv(tenants_dir, parse_dates=["LeaseTermStart", "LeaseTermEnd"])
     
     for _, row in df.iterrows():
-        db.session.add(Tenant(
+        db.session.add(TenantModel(
             TenantName = row.Name,
             TenantContactInfo = row.ContactInfo,
             TenantLeaseTermStart = row.LeaseTermStart,
@@ -44,7 +43,7 @@ def ingest_data():
             
     df = pd.read_csv(maintenance_dir, parse_dates=["ScheduledDate"])
     for _, row in df.iterrows():
-        db.session.add(Task(
+        db.session.add(TaskModel(
             TaskDescription = row.Description,
             TaskStatus = row.Status,
             TaskScheduledDate = row.ScheduledDate,

@@ -1,7 +1,7 @@
 import unittest
 import os
 from app import create_app
-from models import db, Task, Property
+from models import db, TaskModel, PropertyModel
 
 class TaskTestCase(unittest.TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ class TaskTestCase(unittest.TestCase):
         with self.app.app_context():
             db.create_all()
             # Create a property for task foreign key
-            prop = Property(PropAddress="Test Property", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
+            prop = PropertyModel(PropAddress="Test Property", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
             db.session.add(prop)
             db.session.commit()
             self.prop_id = prop.PropId
@@ -42,7 +42,7 @@ class TaskTestCase(unittest.TestCase):
 
     def test_update_task(self):
         with self.app.app_context():
-            task = Task(TaskDescription="Old Task", TaskStatus="Pending", TaskScheduledDate="2023-06-01", PropId=self.prop_id)
+            task = TaskModel(TaskDescription="Old Task", TaskStatus="Pending", TaskScheduledDate="2023-06-01", PropId=self.prop_id)
             db.session.add(task)
             db.session.commit()
             task_id = task.TaskId
@@ -55,7 +55,7 @@ class TaskTestCase(unittest.TestCase):
 
     def test_delete_task(self):
         with self.app.app_context():
-            task = Task(TaskDescription="Delete Task", TaskStatus="Pending", TaskScheduledDate="2023-06-01", PropId=self.prop_id)
+            task = TaskModel(TaskDescription="Delete Task", TaskStatus="Pending", TaskScheduledDate="2023-06-01", PropId=self.prop_id)
             db.session.add(task)
             db.session.commit()
             task_id = task.TaskId

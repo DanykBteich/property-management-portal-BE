@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, post_load
-from models import Tenant
+from models import TenantModel
 from validators.statuses import TENANT_STATUS
 
 class TenantSchema(Schema):
@@ -16,4 +16,4 @@ class TenantSchema(Schema):
         """
             Create a Tenant instance from the deserialized data
         """
-        return Tenant(**data)
+        return TenantModel(**data)

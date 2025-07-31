@@ -1,7 +1,6 @@
 import os
 from flask import Flask
-from models import db
-from models.ingestion import ingest_data
+from models import db, ingest_data
 from dotenv import load_dotenv
 from routes import api_bp
 from routes.entry import bp as entry_bp

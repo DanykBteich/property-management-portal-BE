@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, post_load
-from models import Task
+from models import TaskModel
 from validators.statuses import TASK_STATUS
 
 class TaskSchema(Schema):
@@ -14,4 +14,4 @@ class TaskSchema(Schema):
         """
             Create a Task instance from the deserialized data
         """
-        return Task(**data)
+        return TaskModel(**data)

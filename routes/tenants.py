@@ -3,7 +3,7 @@
 """
 from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import BadRequest
-from models import db, Tenant
+from models import db, TenantModel
 from schemas import TenantSchema
 from .utils import paginate_query
 
@@ -14,7 +14,7 @@ tenants_schema = TenantSchema(many=True)
 
 @bp.route("/", methods=["GET"])
 def Get_list_tenants():
-    query = Tenant.query.order_by(Tenant.TenantId)
+    query = TenantModel.query.order_by(TenantModel.TenantId)
     result = paginate_query(query, tenants_schema)
     return jsonify(result)
 
@@ -28,15 +28,15 @@ def Create_tenant():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_tenant(id):
-    tenant = db.session.get(Tenant, id)
+    tenant = db.session.get(TenantModel, id)
     if tenant is None:
         return jsonify({"Message": f"Tenant id {id} not found"}), 404
     
-    return tenant_schema.jsonify(tenant)
+    return jsonify(tenant_schema.dump(tenant))
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_tenant(id):
-    tenant = db.session.get(Tenant, id)
+    tenant = db.session.get(TenantModel, id)
     if tenant is None:
         return jsonify({"Message": f"Tenant id {id} not found"}), 404
     
@@ -48,7 +48,7 @@ def Update_tenant(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_tenant(id):
-    tenant = db.session.get(Tenant, id)
+    tenant = db.session.get(TenantModel, id)
     if tenant is None:
         return jsonify({"Message": f"Tenant id {id} not found"}), 404
     

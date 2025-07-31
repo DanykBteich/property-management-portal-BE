@@ -2,7 +2,7 @@
     Endpoints for Tasks
 """
 from flask import Blueprint, request, jsonify
-from models import db, Task
+from models import db, TaskModel
 from schemas import TaskSchema
 from .utils import paginate_query
 
@@ -13,7 +13,7 @@ tasks_schema = TaskSchema(many=True)
 
 @bp.route("/", methods=["GET"])
 def Get_list_tasks():
-    query = Task.query.order_by(Task.TaskId)
+    query = TaskModel.query.order_by(TaskModel.TaskId)
     result = paginate_query(query, tasks_schema)
     return jsonify(result)
 
@@ -27,15 +27,15 @@ def Create_task():
 
 @bp.route("/<int:id>", methods=["GET"])
 def Get_task(id):
-    task = db.session.get(Task, id)
+    task = db.session.get(TaskModel, id)
     if task is None:
         return jsonify({"Message": f"Task id {id} not found"}), 404
         
-    return task_schema.jsonify(task)
+    return jsonify(task_schema.dump(task))
 
 @bp.route("/<int:id>", methods=["PUT"])
 def Update_task(id):
-    task = db.session.get(Task, id)
+    task = db.session.get(TaskModel, id)
     if task is None:
         return jsonify({"Message": f"Task id {id} not found"}), 404
         
@@ -47,7 +47,7 @@ def Update_task(id):
 
 @bp.route("/<int:id>", methods=["DELETE"])
 def Delete_task(id):
-    task = db.session.get(Task, id)
+    task = db.session.get(TaskModel, id)
     if task is None:
         return jsonify({"Message": f"Task id {id} not found"}), 404
     

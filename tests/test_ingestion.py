@@ -1,7 +1,6 @@
 import unittest
 from app import create_app
-from models import db, Property, Tenant, Task
-from models.ingestion import ingest_data
+from models import db, PropertyModel, TenantModel, TaskModel, ingest_data
 
 class IngestionTestCase(unittest.TestCase):
     def setUp(self):
@@ -17,9 +16,9 @@ class IngestionTestCase(unittest.TestCase):
 
     def test_ingest_data(self):
         ingest_data()
-        properties = Property.query.all()
-        tenants = Tenant.query.all()
-        tasks = Task.query.all()
+        properties = PropertyModel.query.all()
+        tenants = TenantModel.query.all()
+        tasks = TaskModel.query.all()
 
         self.assertGreater(len(properties), 0)
         self.assertGreater(len(tenants), 0)

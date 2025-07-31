@@ -1,7 +1,7 @@
 import unittest
 import os
 from app import create_app
-from models import db, Tenant, Property
+from models import db, TenantModel, PropertyModel
 
 class TenantTestCase(unittest.TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ class TenantTestCase(unittest.TestCase):
         with self.app.app_context():
             db.create_all()
             # Create a property for tenant foreign key
-            prop = Property(PropAddress="Test Property", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
+            prop = PropertyModel(PropAddress="Test Property", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
             db.session.add(prop)
             db.session.commit()
             self.prop_id = prop.PropId
@@ -44,7 +44,7 @@ class TenantTestCase(unittest.TestCase):
 
     def test_update_tenant(self):
         with self.app.app_context():
-            tenant = Tenant(TenantName="Old Name", TenantContactInfo="old@example.com", TenantLeaseTermStart="2023-01-01", TenantLeaseTermEnd="2023-12-31", TenantRentalPaymentStatus="Paid", PropId=self.prop_id)
+            tenant = TenantModel(TenantName="Old Name", TenantContactInfo="old@example.com", TenantLeaseTermStart="2023-01-01", TenantLeaseTermEnd="2023-12-31", TenantRentalPaymentStatus="Paid", PropId=self.prop_id)
             db.session.add(tenant)
             db.session.commit()
             tenant_id = tenant.TenantId
@@ -57,7 +57,7 @@ class TenantTestCase(unittest.TestCase):
 
     def test_delete_tenant(self):
         with self.app.app_context():
-            tenant = Tenant(TenantName="Delete Name", TenantContactInfo="delete@example.com", TenantLeaseTermStart="2023-01-01", TenantLeaseTermEnd="2023-12-31", TenantRentalPaymentStatus="Paid", PropId=self.prop_id)
+            tenant = TenantModel(TenantName="Delete Name", TenantContactInfo="delete@example.com", TenantLeaseTermStart="2023-01-01", TenantLeaseTermEnd="2023-12-31", TenantRentalPaymentStatus="Paid", PropId=self.prop_id)
             db.session.add(tenant)
             db.session.commit()
             tenant_id = tenant.TenantId

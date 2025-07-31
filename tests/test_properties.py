@@ -1,7 +1,7 @@
 import unittest
 import os
 from app import create_app
-from models import db, Property
+from models import db, PropertyModel
 
 class PropertyTestCase(unittest.TestCase):
     def setUp(self):
@@ -38,7 +38,7 @@ class PropertyTestCase(unittest.TestCase):
 
     def test_update_property(self):
         with self.app.app_context():
-            prop = Property(PropAddress="Old Address", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
+            prop = PropertyModel(PropAddress="Old Address", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
             db.session.add(prop)
             db.session.commit()
             prop_id = prop.PropId
@@ -51,7 +51,7 @@ class PropertyTestCase(unittest.TestCase):
 
     def test_delete_property(self):
         with self.app.app_context():
-            prop = Property(PropAddress="Delete Address", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
+            prop = PropertyModel(PropAddress="Delete Address", PropType="Residential", PropStatus="Vacant", PropPurchaseDate="2023-01-01", PropPrice=100000)
             db.session.add(prop)
             db.session.commit()
             prop_id = prop.PropId
