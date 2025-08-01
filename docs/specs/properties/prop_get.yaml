@@ -1,0 +1,19 @@
+tags:
+  - property
+produces:
+  - application/json
+summary: "Get a property"
+description: "Fetch a single property by ID."
+parameters:
+  - name: PropId
+    in: path
+    type: integer
+    required: true
+    description: ID of the property
+responses:
+  200:
+    description: "Property data"
+    schema:
+      $ref: '#/definitions/Property'
+  404: 
+    description: "Property not found"

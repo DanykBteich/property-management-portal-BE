@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: property_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  web:
+    build: .
+    command: flask run --host=0.0.0.0
+    # Mount the code to edit without rebuilding
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      # Override DATABASE_URL to point at our db service
+      DATABASE_URL: postgresql://dev:dev@db:5432/property_db
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

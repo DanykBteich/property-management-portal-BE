@@ -1,0 +1,140 @@
+swagger: "2.0"
+info:
+  title: "Property Management API"
+  version: "v1"
+  description: "Manage properties, tenants, and tasks"
+host: "127.0.0.1:5000"
+basePath: "/api/v1"
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  Property:
+    type: object
+    properties:
+      PropId:
+        type: integer
+      PropAddress:
+        type: string
+      PropType:
+        type: string
+        enum: ["Residential", "Commercial"]
+      PropStatus:
+        type: string
+        enum: ["Vacant", "Occupied"]
+      PropPurchaseDate:
+        type: string
+        format: date
+      PropPrice:
+        type: integer
+
+  PropertyCreate:
+    type: object
+    required:
+      - PropAddress
+      - PropType
+      - PropStatus
+      - PropPurchaseDate
+      - PropPrice
+    properties:
+      PropAddress:
+        type: string
+      PropType:
+        type: string
+        enum: ["Residential", "Commercial"]
+      PropStatus:
+        type: string
+        enum: ["Vacant", "Occupied"]
+      PropPurchaseDate:
+        type: string
+        format: date
+      PropPrice:
+        type: integer
+
+  Tenant:
+    type: object
+    properties:
+      TenantId:
+        type: integer
+      TenantName:
+        type: string
+      TenantContactInfo:
+        type: string
+      TenantLeaseTermStart:
+        type: string
+        format: date
+      TenantLeaseTermEnd:
+        type: string
+        format: date
+      TenantRentalPaymentStatus:
+        type: string
+        enum: ["Paid", "Pending"]
+      PropId:
+        type: integer
+
+  TenantCreate:
+    type: object
+    required:
+      - TenantName
+      - TenantContactInfo
+      - TenantLeaseTermStart
+      - TenantLeaseTermEnd
+      - TenantRentalPaymentStatus
+      - PropId
+    properties:
+      TenantName:
+        type: string
+      TenantContactInfo:
+        type: string
+      TenantLeaseTermStart:
+        type: string
+        format: date
+      TenantLeaseTermEnd:
+        type: string
+        format: date
+      TenantRentalPaymentStatus:
+        type: string
+        enum: ["Paid", "Pending"]
+      PropId:
+        type: integer
+  
+  Task:
+    type: object
+    properties:
+      TaskId:
+        type: integer
+      TaskDescription:
+        type: string
+      TaskStatus:
+        type: string
+        enum: ["Completed", "In Progress", "Pending"]
+      TaskScheduledDate:
+        type: string
+        format: date
+      PropId:
+        type: integer
+  
+  TaskCreate:
+    type: object
+    required:
+      - TaskDescription
+      - TaskStatus
+      - TaskScheduledDate
+      - PropId
+    properties:
+      TaskDescription:
+        type: string
+      TaskStatus:
+        type: string
+        enum: ["Completed", "In Progress", "Pending"]
+      TaskScheduledDate:
+        type: string
+        format: date
+      PropId:
+        type: integer
+
+paths: {}

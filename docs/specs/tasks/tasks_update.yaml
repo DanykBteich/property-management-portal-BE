@@ -1,0 +1,29 @@
+tags:
+  - task
+summary: "Update an existing task"
+description: "Update fields of an existing task by TaskId."
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+parameters:
+  - name: TaskId
+    in: path
+    type: integer
+    required: true
+    description: ID of the task to update
+  - in: body
+    name: task
+    description: Task fields to update
+    required: true
+    schema:
+      $ref: '#/definitions/TaskCreate'
+responses:
+  200:
+    description: "Updated task"
+    schema:
+      $ref: '#/definitions/TaskCreate'
+  400: 
+    description: "Invalid input"
+  404: 
+    description: "Task not found"

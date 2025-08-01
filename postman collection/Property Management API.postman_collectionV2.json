@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "84d8890c-66f9-42f1-9148-709494a82f5e",
+		"name": "Property Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37741747"
+	},
+	"item": [
+		{
+			"name": "Properties",
+			"item": [
+				{
+					"name": "List Of Properties",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/properties"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"PropAddress\": \"83 Rue de l'Herault, 94220, Charenton le Pont\",\r\n  \"PropPrice\": 250000,\r\n  \"PropPurchaseDate\": \"2020-05-24\",\r\n  \"PropStatus\": \"Vacant\",\r\n  \"PropType\": \"Residential\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/properties"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Existing Property",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //\"PropAddress\": \"83 Rue de l'Herault, 94220, Charenton le Pont\",\r\n  //\"PropPrice\": 250000,\r\n  //\"PropPurchaseDate\": \"2020-05-24\",\r\n  \"PropStatus\": \"Occupied\"//,\r\n  //\"PropType\": \"Residential\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/properties/:PropId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"properties",
+								":PropId"
+							],
+							"variable": [
+								{
+									"key": "PropId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Property",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/properties/:PropId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"properties",
+								":PropId"
+							],
+							"variable": [
+								{
+									"key": "PropId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Existing Property",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/properties/:PropId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"properties",
+								":PropId"
+							],
+							"variable": [
+								{
+									"key": "PropId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tenants",
+			"item": [
+				{
+					"name": "List Of Tenants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/tenants"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Tenant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"PropId\": 2,\r\n  \"TenantContactInfo\": \"33123123\",\r\n  \"TenantLeaseTermEnd\": \"2020-08-01\",\r\n  \"TenantLeaseTermStart\": \"2025-08-01\",\r\n  \"TenantName\": \"Dany Bteich\",\r\n  \"TenantRentalPaymentStatus\": \"Paid\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/tenants"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Existing Tenant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //\"PropId\": 0,\r\n  //\"TenantContactInfo\": \"string\",\r\n  //\"TenantLeaseTermEnd\": \"2025-08-01\",\r\n  //\"TenantLeaseTermStart\": \"2025-08-01\",\r\n  //\"TenantName\": \"string\",\r\n  \"TenantRentalPaymentStatus\": \"Pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/tenants/:TenantId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tenants",
+								":TenantId"
+							],
+							"variable": [
+								{
+									"key": "TenantId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tenant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/tenants/:TenantId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tenants",
+								":TenantId"
+							],
+							"variable": [
+								{
+									"key": "TenantId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Existing Tenant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/tenants/:TenantId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tenants",
+								":TenantId"
+							],
+							"variable": [
+								{
+									"key": "TenantId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "List Of Tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"PropId\": 1,\r\n  \"TaskDescription\": \"Finish the Backend development\",\r\n  \"TaskScheduledDate\": \"2025-08-01\",\r\n  \"TaskStatus\": \"In Progress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Existing Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  //\"PropId\": 1,\r\n  //\"TaskDescription\": \"Finish the Backend development\",\r\n  //\"TaskScheduledDate\": \"2025-08-01\",\r\n  \"TaskStatus\": \"Completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/tasks/:TaskId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tasks",
+								":TaskId"
+							],
+							"variable": [
+								{
+									"key": "TaskId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/tasks/:TaskId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tasks",
+								":TaskId"
+							],
+							"variable": [
+								{
+									"key": "TaskId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Existing Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/tasks/:TaskId",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"tasks",
+								":TaskId"
+							],
+							"variable": [
+								{
+									"key": "TaskId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Main Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{BaseUrl}}"
+			},
+			"response": []
+		}
+	]
+}
