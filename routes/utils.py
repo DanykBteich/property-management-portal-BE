@@ -11,9 +11,9 @@ def paginate_query(query: BaseQuery, schema):
     pagination = query.paginate(page=page, per_page=per_page, error_out=False)
     
     return {
-        "Items": schema.dump(pagination.items),
-        "Total": pagination.total,
-        "Page": pagination.page,
-        "Per_Page": pagination.per_page,
-        "Pages": pagination.pages
+        "items": schema.dump(pagination.items),
+        "total": pagination.total,
+        "page": pagination.page,
+        "per_page": pagination.per_page,
+        "pages": pagination.pages
     }
