@@ -1,0 +1,19 @@
+tags:
+  - task
+produces:
+  - application/json
+summary: "Get a task"
+description: "Fetch a single task by TaskId."
+parameters:
+  - name: TaskId
+    in: path
+    type: integer
+    required: true
+    description: ID of the task
+responses:
+  200:
+    description: "Task data"
+    schema:
+      $ref: '#/definitions/Task'
+  404: 
+    description: "Task not found"

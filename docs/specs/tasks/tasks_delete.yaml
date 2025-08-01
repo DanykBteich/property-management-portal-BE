@@ -1,0 +1,17 @@
+tags:
+  - task
+produces:
+  - application/json
+summary: "Delete a task"
+description: "Remove a task by TaskId."
+parameters:
+  - name: TaskId
+    in: path
+    type: integer
+    required: true
+    description: ID of the task to delete
+responses:
+  204: 
+    description: "Task deleted successfully (no content)"
+  404: 
+    description: "Task not found"

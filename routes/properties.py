@@ -17,14 +17,14 @@ properties_schema = PropertySchema(many=True)
 SPEC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "docs", "specs", "properties"))
 
 @bp.route("/", methods=["GET"])
-@swag_from(os.path.join(SPEC_DIR, "prop_list.yaml"), methods=['GET'])
+@swag_from(os.path.join(SPEC_DIR, "prop_list.yaml"), methods=["GET"])
 def Get_list_properties():
     query = PropertyModel.query.order_by(PropertyModel.PropId)
     result = paginate_query(query, properties_schema)
     return jsonify(result)
 
 @bp.route("/", methods=["POST"])
-@swag_from(os.path.join(SPEC_DIR, "prop_create.yaml"), methods=['POST'])
+@swag_from(os.path.join(SPEC_DIR, "prop_create.yaml"), methods=["POST"])
 def Create_property():
     data = request.get_json(force=True)
     prop = property_create_schema.load(data)
@@ -33,7 +33,7 @@ def Create_property():
     return jsonify(property_create_schema.dump(prop)), 201
 
 @bp.route("/<int:PropId>", methods=["GET"])
-@swag_from(os.path.join(SPEC_DIR, "prop_get.yaml"), methods=['GET'])
+@swag_from(os.path.join(SPEC_DIR, "prop_get.yaml"), methods=["GET"])
 def Get_property(PropId):
     prop = db.session.get(PropertyModel, PropId)
     if prop is None:
@@ -42,7 +42,7 @@ def Get_property(PropId):
     return jsonify(property_schema.dump(prop))
 
 @bp.route("/<int:PropId>", methods=["PUT"])
-@swag_from(os.path.join(SPEC_DIR, "prop_update.yaml"), methods=['PUT'])
+@swag_from(os.path.join(SPEC_DIR, "prop_update.yaml"), methods=["PUT"])
 def Update_property(PropId):
     prop = db.session.get(PropertyModel, PropId)
     if prop is None:
@@ -55,7 +55,7 @@ def Update_property(PropId):
     return jsonify(property_create_schema.dump(prop)), 200
 
 @bp.route("/<int:PropId>", methods=["DELETE"])
-@swag_from(os.path.join(SPEC_DIR, "prop_delete.yaml"), methods=['DELETE'])
+@swag_from(os.path.join(SPEC_DIR, "prop_delete.yaml"), methods=["DELETE"])
 def Delete_property(PropId):
     prop = db.session.get(PropertyModel, PropId)
     if prop is None:

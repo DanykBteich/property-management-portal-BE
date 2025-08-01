@@ -66,9 +66,36 @@ definitions:
         format: date
       TenantRentalPaymentStatus:
         type: string
+        enum: ["Paid", "Pending"]
       PropId:
         type: integer
 
+  TenantCreate:
+    type: object
+    required:
+      - TenantName
+      - TenantContactInfo
+      - TenantLeaseTermStart
+      - TenantLeaseTermEnd
+      - TenantRentalPaymentStatus
+      - PropId
+    properties:
+      TenantName:
+        type: string
+      TenantContactInfo:
+        type: string
+      TenantLeaseTermStart:
+        type: string
+        format: date
+      TenantLeaseTermEnd:
+        type: string
+        format: date
+      TenantRentalPaymentStatus:
+        type: string
+        enum: ["Paid", "Pending"]
+      PropId:
+        type: integer
+  
   Task:
     type: object
     properties:
@@ -78,6 +105,26 @@ definitions:
         type: string
       TaskStatus:
         type: string
+        enum: ["Completed", "In Progress", "Pending"]
+      TaskScheduledDate:
+        type: string
+        format: date
+      PropId:
+        type: integer
+  
+  TaskCreate:
+    type: object
+    required:
+      - TaskDescription
+      - TaskStatus
+      - TaskScheduledDate
+      - PropId
+    properties:
+      TaskDescription:
+        type: string
+      TaskStatus:
+        type: string
+        enum: ["Completed", "In Progress", "Pending"]
       TaskScheduledDate:
         type: string
         format: date
