@@ -1,0 +1,19 @@
+tags:
+  - tenant
+produces:
+  - application/json
+summary: "Get a tenant"
+description: "Fetch a single tenant by TenantId."
+parameters:
+  - name: TenantId
+    in: path
+    type: integer
+    required: true
+    description: ID of the tenant
+responses:
+  200:
+    description: "Tenant data"
+    schema:
+      $ref: '#/definitions/Tenant'
+  404: 
+    description: "Tenant not found"

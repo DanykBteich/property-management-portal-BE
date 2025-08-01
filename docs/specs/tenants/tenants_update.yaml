@@ -1,0 +1,29 @@
+tags:
+  - tenant
+summary: "Update an existing tenant"
+description: "Update fields of an existing tenant by TenantId."
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+parameters:
+  - name: TenantId
+    in: path
+    type: integer
+    required: true
+    description: ID of the tenant to update
+  - in: body
+    name: tenant
+    description: Tenant fields to update
+    required: true
+    schema:
+      $ref: '#/definitions/TenantCreate'
+responses:
+  200:
+    description: "Updated tenant"
+    schema:
+      $ref: '#/definitions/TenantCreate'
+  400: 
+    description: "Invalid input"
+  404: 
+    description: "Tenant not found"

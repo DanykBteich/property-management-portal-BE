@@ -1,0 +1,26 @@
+tags: 
+  - tenant
+summary: "Create a new tenant entry"
+description: "Add a new tenant to the database"
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: tenant
+    description: Tenant object to create 
+    required: true 
+    schema:
+      $ref: "#/definitions/TenantCreate"
+responses:
+  201: 
+    description: "Tenant created Successfully"
+    schema:   
+      $ref: "#/definitions/TenantCreate"
+  400:
+    description: "Invalid Input"
+  409:
+    description: "Tenant already exists"
+  500:
+    description: "Internal Server Error"

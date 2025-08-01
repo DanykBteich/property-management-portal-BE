@@ -1,0 +1,17 @@
+tags:
+  - tenant
+produces:
+  - application/json
+summary: "Delete a tenant"
+description: "Remove a tenant by TenantId."
+parameters:
+  - name: TenantId
+    in: path
+    type: integer
+    required: true
+    description: ID of the tenant to delete
+responses:
+  204: 
+    description: "Tenant deleted successfully (no content)"
+  404: 
+    description: "Tenant not found"

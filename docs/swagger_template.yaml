@@ -34,6 +34,12 @@ definitions:
 
   PropertyCreate:
     type: object
+    required:
+      - PropAddress
+      - PropType
+      - PropStatus
+      - PropPurchaseDate
+      - PropPrice
     properties:
       PropAddress:
         type: string
