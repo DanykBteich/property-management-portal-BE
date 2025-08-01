@@ -1,0 +1,29 @@
+tags:
+  - property
+summary: "Update an existing property"
+description: "Update fields of an existing property by ID."
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+parameters:
+  - name: PropId
+    in: path
+    type: integer
+    required: true
+    description: ID of the property to update
+  - in: body
+    name: property
+    description: Property fields to update
+    required: true
+    schema:
+      $ref: '#/definitions/PropertyCreate'
+responses:
+  200:
+    description: "Updated property"
+    schema:
+      $ref: '#/definitions/PropertyCreate'
+  400: 
+    description: "Invalid input"
+  404: 
+    description: "Property not found"

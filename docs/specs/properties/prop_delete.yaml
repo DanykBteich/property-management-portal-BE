@@ -1,0 +1,17 @@
+tags:
+  - property
+produces:
+  - application/json
+summary: "Delete a property"
+description: "Remove a property by ID."
+parameters:
+  - name: PropId
+    in: path
+    type: integer
+    required: true
+    description: ID of the property to delete
+responses:
+  204: 
+    description: "Property deleted successfully (no content)"
+  404: 
+    description: "Property not found"
